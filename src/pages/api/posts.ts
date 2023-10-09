@@ -6,7 +6,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         // const id = 1111;
         const posts = await prisma.post.findMany();
-        console.log(posts)
+        // console.log(posts)
         res.status(200).json(posts);
       } catch (error) {
         res.status(500).json({ error: 'Failed to fetch posts' });
@@ -32,7 +32,28 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         console.error("Error creating post:", error);
         res.status(500).json({ error: 'Failed to create post' });
       }
-    } else {
+    }
+    
+    else if(req.method === 'PUT') {
+      try {
+        const { id, title, content, image, paragraph, tags} = req.body;
+        const updatedPost = await prisma.post.update({
+          where: { id },
+          data: {
+            title,
+            content,
+            image,
+            paragraph,
+            tags
+          },
+        });
+        res.status(200).json(updatedPost);
+      } catch (error) {
+        console.error("Error creating post:", error);
+        res.status(500).json({ error: 'Failed to create post' });
+      }
+    }
+    else {
       // Handle any other HTTP methods
       res.status(405).json({ error: 'Method not allowed' });
     }

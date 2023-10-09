@@ -8,10 +8,10 @@ import { getSession } from 'next-auth/react';
 import axios from 'axios';
 
 type PostType = {
+  image: string;
+  id: number;
   title: string;
   content: string;
-  id: number;
-  image: string;
   tags: string[];
 };
 
@@ -23,7 +23,7 @@ export default function Home({ initialPosts }: { initialPosts: PostType[] }) {
       <Navbar/>
       <div className='flex flex-wrap justify-center gap-4 my-4'>
         {posts.map(post => (
-          <Card image={post.image} key={post.id} id={post.id} title={post.title} content={post.content} tags={post.tags} />
+          <Card key={post.id} image={post.image} id={post.id} title={post.title} content={post.content} tags={post.tags} />
         ))}
       </div>
     </div>

@@ -5,6 +5,7 @@ type Props = {
     placeholder: string;
     onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>  void;
     inputType?: 'input' | 'textarea';
+    value?: string | "" ;
 }
 
 const Formpost: React.FC<Props> = (props)  => {
@@ -20,6 +21,7 @@ const Formpost: React.FC<Props> = (props)  => {
             onChange={props.onChange}
             className="mt-1 p-2 w-full border rounded-md"
             placeholder={props.placeholder}
+            value={props.value}
             required
           />
         ):(
@@ -30,6 +32,7 @@ const Formpost: React.FC<Props> = (props)  => {
             onChange={props.onChange}
             className="mt-1 p-2 w-full border rounded-md"
             placeholder={props.placeholder}
+            value={props.value}
             required
         />
         )}

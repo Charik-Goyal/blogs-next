@@ -1,12 +1,27 @@
 import React, { ChangeEvent, useState } from 'react';
 import Formpost from '../../components/formpost';
 import Navbar from '../../components/navbar';
-// import { getServerSession } from 'next-auth';
 import { getSession, useSession } from 'next-auth/react';
 import { GetServerSideProps } from 'next';
 import axios from 'axios';
 
-export default function MyForm({value}) {
+type FormData = {
+  title: string;
+  content: string;
+  image: string;
+  paragraph: string;
+  tags: string;
+};
+
+type MyFormProps = {
+  value: {
+    user: {
+      id: string;
+    };
+  };
+};
+
+export default function MyForm({value}: MyFormProps) {
   const [formData, setFormData] = useState({
     title: '',
     content: '',
@@ -24,18 +39,18 @@ export default function MyForm({value}) {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
+    const { title, content, image, paragraph, tags } = formData;
     // ... Submit form data or handle it as needed
     //authorId: value.user.id
     const response = await axios.post('http://localhost:3000/api/posts', {
-      title: formData.title,
-      content: formData. content,
-      image: formData.image,
-      paragraph: formData.paragraph,
-      tags: formData.tags.split(','),
-      authorId: parseInt(value.user.id)
+      title,
+      content,
+      image,
+      paragraph,
+      tags: tags.split(','),
+      authorId: parseInt(value.user.id),
     })
     if(response.status===201){
       setFormData({

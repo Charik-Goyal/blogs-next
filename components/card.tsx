@@ -6,14 +6,15 @@ type Props = {
     id:number;
     title: string;
     content: string;
+    image: string;
     tags: Array<string>;
   };
 
 const Card: React.FC<Props> = (props) => {
     return (
         <Link href={`/article/${props.id}`}>
-        <div className="max-w-sm rounded overflow-hidden shadow-lg">
-        <img className="w-auto" src={props.image} alt="Sunset in the mountains"/>
+        <div className="relative max-w-sm rounded overflow-hidden shadow-lg">
+        <img className="w-auto" src={props.image} alt=""/>
         <div className="px-6 py-4">
             <div className="font-bold text-xl mb-2">{props.title}</div>
             <p className="text-gray-700 text-base">
